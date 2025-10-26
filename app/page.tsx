@@ -79,7 +79,7 @@ export default function Home() {
       >
         {/* Background Image */}
         <Image
-          src="https://gowhereitzat.com/wp-content/uploads/2021/08/Top-Ten-Stereotypes-about-Jamaicans-Jamaican-flag.jpg"
+          src="https://i.imgur.com/qHJeTDb.jpeg"
           alt="Jamaican Flag"
           layout="fill"
           objectFit="cover"
@@ -120,19 +120,6 @@ export default function Home() {
                 style={{ backgroundSize: "200% auto" }}
               >
                 Talawa
-                {/* Shimmer overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{
-                    x: ["-100%", "200%"],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    repeatDelay: 2,
-                  }}
-                  style={{ mixBlendMode: "overlay" }}
-                />
               </motion.span>
             </motion.h1>
 

@@ -1,12 +1,16 @@
 "use client";
 
+"use client";
+
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import InteractiveCard from "@/components/InteractiveCard";
 import ParallaxText from "@/components/ParallaxText";
+import ImageGallery from "@/components/ImageGallery";
+import Image from "next/image";
 
 function FadeInSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -28,9 +32,86 @@ export default function GalaPage() {
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [initialIndex, setInitialIndex] = useState(0);
+
+  const galaImages = [
+    { src: "/images/gala/2025-03-08 23_28_43.795-0500.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/2025-03-09 00_24_54.443-0500.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/2025-03-09 00_32_45.647-0500.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/2025-03-09 00_33_16.967-0500.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190353.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190355.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190406.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190602.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190628.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_190708.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_191050.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_191322.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_191355.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_191533.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_191620.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_192225.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_192313.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193033.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193049.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193202(0).jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193250.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193320.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193424.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_193839.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_195849.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_195903.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_200048.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_200100.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_202342.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_202958.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_205149.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_205333(0).jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_205348.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_205442.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_210132.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_210132(0).jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_212758.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_212800.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_212804.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_213338.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_213745.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_213746.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_220807.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_221738.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222200.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222411.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222415.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222545.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222549.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222628.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_222722.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_223013.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_223015.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_223752.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_223753.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_224356.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_233718(0).jpg", alt: "Gala 2025" },
+    { src: "/images/gala/20250308_233719.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/PXL_20250309_042001444.MP.jpg", alt: "Gala 2025" },
+    { src: "/images/gala/PXL_20250309_042004647.jpg", alt: "Gala 2025" },
+  ];
+
+  const openGallery = (index: number) => {
+    setInitialIndex(index);
+    setGalleryOpen(true);
+  };
 
   return (
     <div className="overflow-hidden">
+      {galleryOpen && (
+        <ImageGallery
+          images={galaImages}
+          initialIndex={initialIndex}
+          onClose={() => setGalleryOpen(false)}
+        />
+      )}
       {/* Hero Section */}
       <motion.section
         style={{ opacity: heroOpacity, scale: heroScale }}
@@ -370,13 +451,24 @@ export default function GalaPage() {
             </p>
 
             <div className="max-w-6xl mx-auto bg-white rounded-3xl p-4 shadow-2xl">
-              <iframe
-                src="https://photos.google.com/share/AF1QipOVy7_1SPoRu0EgXnKBqV52y8CBo0RPI4IZ0G5p4GmgO06IZZdIgpRz1-3j39ZcSQ?key=Z0tXcFliTXk2QlFwNFVESHV5eDh5UGdoN3pVVW53&hl=en"
-                width="100%"
-                height="600"
-                className="rounded-2xl"
-                title="Talawa Gala 2025 Photo Gallery"
-              ></iframe>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {galaImages.map((image, index) => (
+                  <motion.div
+                    key={image.src}
+                    className="relative aspect-square rounded-lg overflow-hidden cursor-pointer"
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => openGallery(index)}
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    />
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </FadeInSection>
         </div>
