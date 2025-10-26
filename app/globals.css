@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  /* Jamaican-inspired color palette */
+  --color-primary-green: #009B3A;
+  --color-primary-gold: #FDB913;
+  --color-primary-black: #000000;
+
+  --color-accent-coral: #FF6B6B;
+  --color-accent-ocean: #4A90E2;
+  --color-accent-sunset: #FF8C42;
+
+  --color-earth-clay: #C17817;
+  --color-earth-sand: #E8D5B5;
+  --color-earth-forest: #0F5323;
+}
+
+body {
+  background-color: white;
+  color: #111827;
+  font-family: var(--font-inter), sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
